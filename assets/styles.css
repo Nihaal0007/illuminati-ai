@@ -5493,3 +5493,189 @@ body.home-page .manifesto .kicker {
     grid-template-columns: 1fr;
   }
 }
+
+/* ─── CONTACT FORM SECTION (Google Form embed) ─── */
+.contact-form-section {
+  max-width: 900px;
+  margin: 5rem auto;
+  padding: 0 2rem;
+}
+
+.contact-form-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.contact-form-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(212, 164, 55, 0.7);
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.contact-form-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: #D4A437;
+  margin-bottom: 1rem;
+  letter-spacing: 0.005em;
+}
+
+.contact-form-subtitle {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.google-form-wrapper {
+  background: rgba(212, 164, 55, 0.03);
+  border: 1px solid rgba(212, 164, 55, 0.15);
+  border-radius: 4px;
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.google-form-iframe {
+  border: none;
+  display: block;
+  width: 100%;
+  min-height: 1514px;
+  background: transparent;
+  border-radius: 2px;
+}
+
+.contact-alternative {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(212, 164, 55, 0.15);
+}
+
+.contact-alt-label {
+  font-family: 'Inter', sans-serif;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  margin: 0 0 0.75rem 0;
+}
+
+.contact-alt-options {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.contact-alt-options a {
+  color: #D4A437;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(212, 164, 55, 0.3);
+  transition: border-color 0.3s ease;
+  padding-bottom: 1px;
+}
+
+.contact-alt-options a:hover {
+  border-bottom-color: #D4A437;
+}
+
+.contact-alt-divider {
+  color: rgba(212, 164, 55, 0.4);
+  margin: 0 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .contact-form-section {
+    margin: 3rem auto;
+    padding: 0 1rem;
+  }
+
+  .google-form-wrapper {
+    padding: 0.5rem;
+  }
+
+  .google-form-iframe {
+    min-height: 1700px;
+  }
+
+  .contact-alt-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .contact-alt-divider {
+    display: none;
+  }
+}
+
+/* ─── CONTACT CTA (opens Google Form in new tab) ─── */
+.contact-cta-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  margin: 5rem auto 4rem;
+  padding: 0 2rem;
+}
+
+.contact-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  padding: 1.4rem 4rem;
+  background: #D4A437;
+  color: #0a0a0a;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid #D4A437;
+  border-radius: 2px;
+  box-shadow: 0 12px 38px rgba(212, 164, 55, 0.18);
+  transition: background 0.35s ease, color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.contact-cta-btn:hover {
+  background: transparent;
+  color: #D4A437;
+  transform: translateY(-3px);
+  box-shadow: 0 18px 48px rgba(212, 164, 55, 0.28);
+}
+
+.contact-cta-arrow {
+  display: inline-block;
+  font-weight: 400;
+  transition: transform 0.35s ease;
+}
+
+.contact-cta-btn:hover .contact-cta-arrow {
+  transform: translateX(6px);
+}
+
+.contact-cta-note {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(212, 164, 55, 0.7);
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .contact-cta-btn {
+    padding: 1.2rem 2.5rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.18em;
+    width: 100%;
+    max-width: 360px;
+  }
+}
