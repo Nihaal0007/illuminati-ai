@@ -564,14 +564,50 @@
     // use the CSS slide-in scoped under .whychoose-section (see styles.css)
     // and are triggered by app.js initHowChooseReveal.
 
+    // Pre-set every stat card to its hidden state immediately so they
+    // can't accidentally show before the whychoose heading reveals.
     document.querySelectorAll('.stat').forEach(stat => {
+      gsap.set(stat, { opacity: 0, y: 22, scale: 0.96 });
+      const emoji = stat.querySelector('.stat-emoji');
+      const num   = stat.querySelector('.stat-num');
+      const label = stat.querySelector('h4');
+      const desc  = stat.querySelector('p');
+      if (emoji) gsap.set(emoji, { scale: 0.6, rotation: -10, opacity: 0 });
+      if (num)   gsap.set(num,   { opacity: 0, scale: 0.85 });
+      if (label) gsap.set(label, { opacity: 0, x: -18, filter: 'blur(4px)' });
+      if (desc)  gsap.set(desc,  { opacity: 0, y: 14, filter: 'blur(3px)' });
+    });
+
+    // Stats reveal is GATED — only allowed to fire AFTER the
+    // whychoose heading + subhead animation has played out, so the
+    // sequence is: scroll → "Why Choose Illuminati AI" + subhead glide
+    // in → keep scrolling → 5 reason-cards animate.
+    const whychoose = document.querySelector('.whychoose-section');
+    const HEADING_ANIM_MS = 1850;
+    function setupStatScrollTriggers() {
+      document.querySelectorAll('.stat').forEach(stat => buildStatAnimation(stat));
+    }
+    if (!whychoose) {
+      setupStatScrollTriggers();
+    } else if (whychoose.classList.contains('is-revealed')) {
+      setTimeout(setupStatScrollTriggers, HEADING_ANIM_MS);
+    } else {
+      const mo = new MutationObserver(() => {
+        if (whychoose.classList.contains('is-revealed')) {
+          mo.disconnect();
+          setTimeout(setupStatScrollTriggers, HEADING_ANIM_MS);
+        }
+      });
+      mo.observe(whychoose, { attributes: true, attributeFilter: ['class'] });
+    }
+
+    function buildStatAnimation(stat) {
       const emoji = stat.querySelector('.stat-emoji');
       const num = stat.querySelector('.stat-num');
       const label = stat.querySelector('h4');
       const desc = stat.querySelector('p');
 
       // Card entrance — gentle scale + fade with gold border highlight.
-      gsap.set(stat, { opacity: 0, y: 22, scale: 0.96 });
       gsap.to(stat, {
         opacity: 1, y: 0, scale: 1,
         duration: 0.85, ease: 'cubic-bezier(0.16, 1, 0.3, 1)',
@@ -635,8 +671,12 @@
           }
         });
       } else if (num) {
-        gsap.from(num, {
-          opacity: 0, scale: 0.85, y: 8, duration: 0.85, ease: 'cubic-bezier(0.16, 1, 0.3, 1)',
+        // Pre-set already has opacity:0 + scale:0.85 — animate TO the
+        // visible state. (gsap.from would be a no-op since the from-
+        // values matched the pre-set, leaving the number invisible.)
+        gsap.to(num, {
+          opacity: 1, scale: 1,
+          duration: 0.85, ease: 'cubic-bezier(0.16, 1, 0.3, 1)',
           delay: 0.25,
           scrollTrigger: { trigger: stat, start: 'top 88%', once: true }
         });
@@ -663,7 +703,7 @@
           scrollTrigger: { trigger: stat, start: 'top 88%', once: true }
         });
       }
-    });
+    }
   }
 
   function initAboutPage() {

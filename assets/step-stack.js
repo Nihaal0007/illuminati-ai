@@ -147,12 +147,14 @@
     const scrolled = Math.max(0, -rect.top);
     const progress = clamp01(scrolled / scrollableDistance);
 
-    // Card 0 entrance progress — based on the section's pre-pin scroll.
-    // 0 when the section is fully below the viewport, 1 when its top edge
-    // hits the top of the viewport (about to pin). This gives card 0 a
-    // visible rise + fade animation triggered the moment the user scrolls
-    // past the subheadline, with no dead space afterwards.
-    const card0Entrance = clamp01((vh - rect.top) / vh);
+    // Card 0 entrance progress — only starts ramping once the section's
+    // top is in the upper ~30% of the viewport (i.e., the intro/hairline
+    // has nearly scrolled out). This keeps card 0 fully hidden on initial
+    // page load so it doesn't peek through with the hero, then fades in
+    // and rises as the user finishes scrolling past the gold line.
+    // Everything else (stack progress, spread, opacity adjustments) stays
+    // untouched so the existing pinned-scroll animation is preserved.
+    const card0Entrance = clamp01((vh * 0.3 - rect.top) / (vh * 0.3));
 
     // Final-row geometry (depends on actual rendered card width — handles tablet 320 / desktop 380)
     const cardWidth = cards[0].getBoundingClientRect().width;

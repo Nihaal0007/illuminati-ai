@@ -1,0 +1,53 @@
+# Illuminati AI
+
+> Premium AI agents and automation agency in India. We build custom AI agents, agentic systems, and AI infrastructure for Indian SMBs and enterprises.
+
+## About
+
+Illuminati AI is a Mumbai-based AI engineering firm founded by Monish Shah in 2026, evolving from Illuminati Media (established 2018). We specialize in:
+
+- **Custom AI Agents** — Bespoke single-purpose agents for specific business functions
+- **Agentic Systems & Workflows** — Multi-agent orchestration for end-to-end automation
+- **AI Infrastructure Engineering** — Private AI brains, retrieval pipelines, vector databases
+- **OpenClaw Setup** — Specialised framework deployment for production agentic capability
+- **AI Strategy & Audit** — Diagnostic engagements for AI transformation roadmaps
+- **Website Engineering** — Premium AI-native websites with embedded agents
+
+## Key Pages
+
+- [Homepage](https://illuminatiai.tech/): Company overview and value proposition
+- [Services](https://illuminatiai.tech/services.html): Six tiers of AI services with pricing
+- [Products](https://illuminatiai.tech/products.html): Creator OS and Content Automation Suite (coming soon)
+- [How It Works](https://illuminatiai.tech/how-it-works.html): 3-phase implementation process
+- [About](https://illuminatiai.tech/about.html): Company history and founder bio
+- [FAQ](https://illuminatiai.tech/faq.html): Common questions about AI agents and our services
+- [Contact](https://illuminatiai.tech/contact.html): Get in touch and request quotes
+
+## Service Pricing
+
+All prices in Indian Rupees (INR), exclusive of GST:
+
+- Custom AI Agents: Starting from ₹50,000
+- AI Strategy & Audit: Starting from ₹50,000
+- OpenClaw Setup: Starting from ₹1,00,000
+- Customised Agentic Systems & Workflows: Starting from ₹1,00,000
+- AI Infrastructure Engineering: Starting from ₹1,50,000
+- Website Engineering: Starting from ₹2,00,000
+
+## Contact
+
+- Email: illuminati.ai@illuminatiai.tech
+- Phone: +91 93262 94784
+- Address: Javji Dadaji Marg, Shop Nos. 14 to 19, Dun Shopping Center, Mumbai, Maharashtra 400007, India
+- LinkedIn: https://www.linkedin.com/company/illuminati-ai
+
+## Legal & Compliance
+
+- DPDP Act 2023 compliant for personal data handling
+- Privacy Policy: https://illuminatiai.tech/privacy.html
+- Terms of Service: https://illuminatiai.tech/terms.html
+- Refund Policy: https://illuminatiai.tech/refund.html
+
+## Market Position
+
+Founded in 2026, Illuminati AI operates in the Indian AI agents market, which Grand View Research projects will grow at 57.4% CAGR to US$15.2B by 2033. Salesforce research indicates 78% of Indian SMBs are already experimenting with AI, making this an ideal time for businesses to invest in custom AI agents.
