@@ -9,8 +9,8 @@
   const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const IS_MOBILE = window.matchMedia('(max-width: 768px)').matches;
   const DEBUG = /[?&]debug=1/.test(location.search);
-  const STAGGER_SCALE  = IS_MOBILE ? 0.7 : 1;
-  const DURATION_SCALE = IS_MOBILE ? 0.8 : 1;
+  const STAGGER_SCALE  = IS_MOBILE ? 0.55 : 0.8;
+  const DURATION_SCALE = IS_MOBILE ? 0.6 : 0.75;
   const HERO_BLUR_PX   = IS_MOBILE ? 6 : 10;
 
   function safe(fn) { try { fn(); } catch (e) { console.warn('[anim]', e); } }
@@ -312,7 +312,7 @@
         stagger: (opts.stagger || 0.04) * STAGGER_SCALE,
         delay: opts.delay || 0,
         scrollTrigger: opts.noScroll ? undefined : {
-          trigger: opts.trigger || el, start: 'top 85%', once: true
+          trigger: opts.trigger || el, start: 'top 88%', once: true
         }
       });
     });
@@ -331,7 +331,7 @@
         stagger: (opts.stagger || 0.025) * STAGGER_SCALE,
         delay: opts.delay || 0,
         scrollTrigger: opts.noScroll ? undefined : {
-          trigger: opts.trigger || el, start: 'top 90%', once: true
+          trigger: opts.trigger || el, start: 'top 88%', once: true
         }
       });
     });
@@ -484,7 +484,7 @@
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: trigger || lede || kicker,
-          start: 'top 82%',
+          start: 'top 88%',
           once: true
         }
       });
@@ -772,7 +772,7 @@
           opacity: 1, y: 0,
           duration: 0.7, ease: 'power3.out',
           delay: 0.5 + i * 0.08,
-          scrollTrigger: { trigger: card, start: 'top 85%', once: true }
+          scrollTrigger: { trigger: card, start: 'top 88%', once: true }
         });
       });
       const btn = card.querySelector('.btn');

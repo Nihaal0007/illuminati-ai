@@ -139,12 +139,10 @@
     buildRays(refs.rays, 40);
     buildShimmerParticles(refs.shimmer, 50);
 
-    // Mark the moment the cinematic visual starts. The soundscape
-    // shifts its scheduling by this offset so audio + visual stay
-    // synced even if browser autoplay delayed the unlock by a frame
-    // or two.
+    // Mark the moment the cinematic visual starts.
+    // (Soundscape disabled — silent intro.)
     introStartTimestamp = performance.now();
-    playIntroSoundscape();
+    // playIntroSoundscape();  // DISABLED — no audio during intro
 
     runSequence(refs);
   }

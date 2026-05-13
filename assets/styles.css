@@ -4128,18 +4128,18 @@ body.home-page .manifesto .kicker {
 .tier-text h3 {
   font-family: 'Playfair Display', serif;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 19px;
   color: var(--white);
-  margin: 0 0 2px;
+  margin: 0 0 4px;
   line-height: 1.25;
 }
 .tier-text p {
   font-family: 'Raleway', sans-serif;
   font-weight: 400;
-  font-size: 13px;
+  font-size: 15px;
   color: var(--white-muted);
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 .tier-arrow {
   font-family: 'Playfair Display', serif;
@@ -5818,3 +5818,57 @@ body.home-page .manifesto .kicker {
     width: 100%;
   }
 }
+
+/* ─── ABOUT — Founder section scroll-reveal ─── */
+.founder-section .founder-section-header,
+.founder-section .founder-card {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.founder-section.is-revealed .founder-section-header {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.05s;
+}
+
+.founder-section.is-revealed .founder-card {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.22s;
+}
+
+.founder-section .founder-photo,
+.founder-section .founder-name,
+.founder-section .founder-role,
+.founder-section .founder-bio,
+.founder-section .founder-social {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.founder-section.is-revealed .founder-photo  { opacity: 1; transform: translateY(0); transition-delay: 0.35s; }
+.founder-section.is-revealed .founder-name   { opacity: 1; transform: translateY(0); transition-delay: 0.48s; }
+.founder-section.is-revealed .founder-role   { opacity: 1; transform: translateY(0); transition-delay: 0.58s; }
+.founder-section.is-revealed .founder-bio    { opacity: 1; transform: translateY(0); transition-delay: 0.68s; }
+.founder-section.is-revealed .founder-social { opacity: 1; transform: translateY(0); transition-delay: 0.78s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .founder-section .founder-section-header,
+  .founder-section .founder-card,
+  .founder-section .founder-photo,
+  .founder-section .founder-name,
+  .founder-section .founder-role,
+  .founder-section .founder-bio,
+  .founder-section .founder-social {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+

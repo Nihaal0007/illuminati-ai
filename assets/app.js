@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initLogos();
   initPageHeroSlideIn();
   initAboutLegacyReveal();
+  initAboutFounderReveal();
   initAboutPhilosophyReveal();
   initAboutPrinciplesReveal();
   initAboutPathForwardReveal();
@@ -285,7 +286,7 @@ function initHomeTierRowsReveal() {
   function tick() {
     if (!userScrolled) return;
     if (tierPreview.classList.contains('tiers-reveal-go')) return;
-    const triggerLine = window.scrollY + window.innerHeight * 0.78;
+    const triggerLine = window.scrollY + window.innerHeight * 0.80;
     if (triggerLine > previewTop) tierPreview.classList.add('tiers-reveal-go');
   }
   window.addEventListener('scroll', () => {
@@ -334,6 +335,32 @@ function initAboutLegacyReveal() {
   });
 }
 
+/* ABOUT PAGE — "The Order / Led By" founder reveal.
+   Section header fades up first, then the founder card cascades after.
+   Conservative trigger (0.55) so it only fires after the user has actually
+   scrolled past the Legacy hero — the section needs to be in the upper half
+   of the viewport before the cascade kicks in. */
+function initAboutFounderReveal() {
+  const path = (location.pathname.split('/').pop() || '').toLowerCase();
+  if (path !== 'about.html') return;
+  const section = document.querySelector('.founder-section');
+  if (!section) return;
+
+  const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+
+  let userScrolled = false;
+  function tick() {
+    if (!userScrolled) return;
+    if (section.classList.contains('is-revealed')) return;
+    const triggerLine = window.scrollY + window.innerHeight * 0.55;
+    if (triggerLine > sectionTop) section.classList.add('is-revealed');
+  }
+  window.addEventListener('scroll', () => {
+    if (!userScrolled && window.scrollY > 120) userScrolled = true;
+    tick();
+  }, { passive: true });
+}
+
 /* ABOUT PAGE — "Our Philosophy" reveal. Heading drops in with 3D
    rotateX + gold halo flash; each of the three paragraphs enters from
    a different direction (down-from-top, in-from-right, up-from-bottom).
@@ -354,7 +381,7 @@ function initAboutPhilosophyReveal() {
   function tick() {
     if (!userScrolled) return;
     if (section.classList.contains('is-revealed')) return;
-    const triggerLine = window.scrollY + window.innerHeight * 0.78;
+    const triggerLine = window.scrollY + window.innerHeight * 0.80;
     if (triggerLine > sectionTop) section.classList.add('is-revealed');
   }
   window.addEventListener('scroll', () => {
@@ -380,7 +407,7 @@ function initAboutPrinciplesReveal() {
   function tick() {
     if (!userScrolled) return;
     if (section.classList.contains('is-revealed')) return;
-    const triggerLine = window.scrollY + window.innerHeight * 0.78;
+    const triggerLine = window.scrollY + window.innerHeight * 0.80;
     if (triggerLine > sectionTop) section.classList.add('is-revealed');
   }
   window.addEventListener('scroll', () => {
@@ -471,7 +498,7 @@ function initAboutPathForwardReveal() {
   function tick() {
     if (!userScrolled) return;
     if (section.classList.contains('is-revealed')) return;
-    const triggerLine = window.scrollY + window.innerHeight * 0.78;
+    const triggerLine = window.scrollY + window.innerHeight * 0.80;
     if (triggerLine > sectionTop) section.classList.add('is-revealed');
   }
   window.addEventListener('scroll', () => {
@@ -533,7 +560,7 @@ function initContactBoxesReveal() {
   let userScrolled = false;
   function tick() {
     if (!userScrolled) return;
-    const triggerLine = window.scrollY + window.innerHeight * 0.78;
+    const triggerLine = window.scrollY + window.innerHeight * 0.80;
     if (gridTop !== null && !document.body.classList.contains('contact-anim-go') && triggerLine > gridTop) {
       document.body.classList.add('contact-anim-go');
     }
@@ -591,7 +618,7 @@ function initFAQItemsReveal() {
   let userScrolled = false;
   function tick() {
     if (!userScrolled) return;
-    const triggerLine = window.scrollY + window.innerHeight * 0.85;
+    const triggerLine = window.scrollY + window.innerHeight * 0.80;
     entries.forEach(e => {
       if (e.el.classList.contains('is-revealed')) return;
       if (triggerLine > e.docTop) e.el.classList.add('is-revealed');
@@ -621,7 +648,7 @@ function initHomeTiersReveal() {
   function tick() {
     if (!userScrolled) return;
     if (section.classList.contains('is-revealed')) return;
-    const triggerLine = window.scrollY + window.innerHeight * 0.78;
+    const triggerLine = window.scrollY + window.innerHeight * 0.80;
     if (triggerLine > sectionTop) section.classList.add('is-revealed');
   }
   window.addEventListener('scroll', () => {
@@ -666,7 +693,7 @@ function initHowChooseReveal() {
   function tryReveal() {
     if (!userScrolled || !ctaAnimationDone) return;
     if (section.classList.contains('is-revealed')) return;
-    const triggerLine = window.scrollY + window.innerHeight * 0.78;
+    const triggerLine = window.scrollY + window.innerHeight * 0.80;
     if (triggerLine > sectionTop) section.classList.add('is-revealed');
   }
 
@@ -734,7 +761,7 @@ function initHowFaqCtaSlam() {
   // browsers where layout reflow shifts after DCL).
   function tick() {
     if (cta.classList.contains('is-revealed')) return;
-    const triggerLine = window.scrollY + window.innerHeight * 0.95;
+    const triggerLine = window.scrollY + window.innerHeight * 0.80;
     if (triggerLine > ctaTop) reveal();
   }
   window.addEventListener('scroll', tick, { passive: true });
@@ -784,7 +811,7 @@ function initProductsCardSlide() {
 
   function tick() {
     if (!userScrolled || !heroDone) return;
-    const triggerLine = window.scrollY + window.innerHeight * 0.82;
+    const triggerLine = window.scrollY + window.innerHeight * 0.80;
     if (!left.classList.contains('is-revealed') && triggerLine > leftTop) {
       left.classList.add('is-revealed');
     }
@@ -870,7 +897,7 @@ function initServicesCardSlide() {
 
   function tick() {
     if (!userScrolled) return;
-    const triggerLine = window.scrollY + window.innerHeight * 0.82;
+    const triggerLine = window.scrollY + window.innerHeight * 0.80;
     entries.forEach(e => {
       if (e.card.classList.contains('is-revealed')) return;
       if (e.gateHero && !heroDone) return;
