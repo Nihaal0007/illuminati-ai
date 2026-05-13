@@ -281,60 +281,17 @@
 <script src="assets/animations.js"></script>
 
 <!-- Cookie Consent Banner -->
-<div id="cookieBanner" class="cookie-banner" style="display: none;">
-  <button type="button" class="cookie-banner-close" onclick="closeCookieBanner()" aria-label="Dismiss cookie banner">&times;</button>
+<div id="cookie-consent-banner" class="cookie-banner" style="display: none;">
+  <button class="cookie-banner-close" aria-label="Close" onclick="hideCookieBanner()">&times;</button>
   <div class="cookie-banner-content">
-    <div class="cookie-banner-text">
-      <h4>We Value Your Privacy</h4>
-      <p>We use cookies to enhance your browsing experience and analyze our traffic. By clicking "Accept All", you consent to our use of cookies. Read our <a href="cookies.html">Cookie Policy</a> for more information.</p>
-    </div>
-    <div class="cookie-banner-buttons">
-      <button class="cookie-btn cookie-btn-secondary" onclick="manageCookies()">Manage Preferences</button>
-      <button class="cookie-btn cookie-btn-primary" onclick="acceptAllCookies()">Accept All</button>
-    </div>
-  </div>
-</div>
-
-<!-- Cookie Preferences Modal -->
-<div id="cookieModal" class="cookie-modal" style="display: none;">
-  <div class="cookie-modal-content">
-    <span class="cookie-modal-close" onclick="closeCookieModal()">&times;</span>
-    <h3>Cookie Preferences</h3>
-    <p>Choose which cookies you want to accept. Your choice will be remembered for one year.</p>
-
-    <div class="cookie-preference-item">
-      <div class="cookie-preference-header">
-        <h4>Necessary Cookies</h4>
-        <span class="cookie-toggle-disabled">Always Active</span>
-      </div>
-      <p>Essential for the website to function. Cannot be disabled.</p>
-    </div>
-
-    <div class="cookie-preference-item">
-      <div class="cookie-preference-header">
-        <h4>Analytics Cookies</h4>
-        <label class="cookie-toggle">
-          <input type="checkbox" id="analyticsToggle">
-          <span class="cookie-toggle-slider"></span>
-        </label>
-      </div>
-      <p>Help us understand how visitors interact with our website.</p>
-    </div>
-
-    <div class="cookie-preference-item">
-      <div class="cookie-preference-header">
-        <h4>Marketing Cookies</h4>
-        <label class="cookie-toggle">
-          <input type="checkbox" id="marketingToggle">
-          <span class="cookie-toggle-slider"></span>
-        </label>
-      </div>
-      <p>Used to deliver relevant ads and measure campaign performance.</p>
-    </div>
-
-    <div class="cookie-modal-buttons">
-      <button class="cookie-btn cookie-btn-secondary" onclick="closeCookieModal()">Cancel</button>
-      <button class="cookie-btn cookie-btn-primary" onclick="savePreferences()">Save Preferences</button>
+    <h3 class="cookie-banner-title">We Value Your Privacy</h3>
+    <p class="cookie-banner-text">
+      We use cookies to enhance your browsing experience and analyze our traffic.
+      Read our <a href="cookies.html">Cookie Policy</a> for more information.
+    </p>
+    <div class="cookie-banner-actions">
+      <button class="btn-cookie-reject" onclick="rejectAllCookies()">Reject All</button>
+      <button class="btn-cookie-accept" onclick="acceptAllCookies()">Accept All</button>
     </div>
   </div>
 </div>

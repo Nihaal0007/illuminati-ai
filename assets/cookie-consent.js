@@ -1,100 +1,117 @@
-// ─── COOKIE CONSENT MANAGEMENT ─────────────────────────────
-(function() {
-  const CONSENT_KEY = 'illuminati_ai_cookie_consent';
-  const CONSENT_VERSION = '1.0';
+// ─── COOKIE CONSENT BANNER ───
 
-  function getConsent() {
-    try {
-      const stored = localStorage.getItem(CONSENT_KEY);
-      return stored ? JSON.parse(stored) : null;
-    } catch (e) {
+const COOKIE_CONSENT_KEY = 'illuminati_cookie_consent';
+const COOKIE_CONSENT_EXPIRY_DAYS = 365;
+
+// Check if user has already made a choice
+function hasUserConsented() {
+  const consent = getStoredConsent();
+  return consent !== null;
+}
+
+// Get stored consent from localStorage
+function getStoredConsent() {
+  try {
+    const stored = localStorage.getItem(COOKIE_CONSENT_KEY);
+    if (!stored) return null;
+
+    const data = JSON.parse(stored);
+
+    // Check if expired
+    if (data.expiry && new Date().getTime() > data.expiry) {
+      localStorage.removeItem(COOKIE_CONSENT_KEY);
       return null;
     }
-  }
 
-  function setConsent(preferences) {
-    try {
-      localStorage.setItem(CONSENT_KEY, JSON.stringify({
-        version: CONSENT_VERSION,
-        timestamp: new Date().toISOString(),
-        ...preferences
-      }));
-    } catch (e) {
-      console.log('Could not save cookie preferences');
+    return data;
+  } catch (e) {
+    return null;
+  }
+}
+
+// Store consent in localStorage
+function storeConsent(necessary, analytics, marketing) {
+  const expiryDate = new Date();
+  expiryDate.setDate(expiryDate.getDate() + COOKIE_CONSENT_EXPIRY_DAYS);
+
+  const consent = {
+    necessary: necessary,
+    analytics: analytics,
+    marketing: marketing,
+    timestamp: new Date().toISOString(),
+    expiry: expiryDate.getTime()
+  };
+
+  localStorage.setItem(COOKIE_CONSENT_KEY, JSON.stringify(consent));
+
+  // Trigger analytics/marketing scripts if accepted
+  if (analytics) {
+    enableAnalyticsCookies();
+  }
+  if (marketing) {
+    enableMarketingCookies();
+  }
+}
+
+// Accept all cookies
+function acceptAllCookies() {
+  storeConsent(true, true, true);
+  hideCookieBanner();
+}
+
+// Reject all non-essential cookies
+function rejectAllCookies() {
+  storeConsent(true, false, false);
+  hideCookieBanner();
+}
+
+// Hide the banner
+function hideCookieBanner() {
+  const banner = document.getElementById('cookie-consent-banner');
+  if (banner) {
+    banner.style.opacity = '0';
+    setTimeout(() => {
+      banner.style.display = 'none';
+    }, 300);
+  }
+}
+
+// Show the banner
+function showCookieBanner() {
+  const banner = document.getElementById('cookie-consent-banner');
+  if (banner) {
+    banner.style.display = 'block';
+    setTimeout(() => {
+      banner.style.opacity = '1';
+    }, 100);
+  }
+}
+
+// Placeholder functions for future analytics/marketing integration
+function enableAnalyticsCookies() {
+  // When ready to add Google Analytics or similar, initialize it here
+  // Example: gtag('consent', 'update', { 'analytics_storage': 'granted' });
+  console.log('Analytics cookies enabled');
+}
+
+function enableMarketingCookies() {
+  // When ready to add marketing pixels (Meta, LinkedIn, etc.), initialize them here
+  // Example: fbq('consent', 'grant');
+  console.log('Marketing cookies enabled');
+}
+
+// Initialize banner on page load
+document.addEventListener('DOMContentLoaded', function() {
+  if (!hasUserConsented()) {
+    showCookieBanner();
+  } else {
+    // User already consented - apply their previous choices
+    const consent = getStoredConsent();
+    if (consent && consent.analytics) {
+      enableAnalyticsCookies();
+    }
+    if (consent && consent.marketing) {
+      enableMarketingCookies();
     }
   }
-
-  function showBanner() {
-    const banner = document.getElementById('cookieBanner');
-    if (banner) banner.style.display = 'block';
-  }
-
-  function hideBanner() {
-    const banner = document.getElementById('cookieBanner');
-    if (banner) banner.style.display = 'none';
-  }
-
-  window.acceptAllCookies = function() {
-    setConsent({
-      necessary: true,
-      analytics: true,
-      marketing: true
-    });
-    hideBanner();
-    loadOptionalScripts(true, true);
-  };
-
-  window.manageCookies = function() {
-    const modal = document.getElementById('cookieModal');
-    if (modal) modal.style.display = 'flex';
-  };
-
-  window.closeCookieModal = function() {
-    const modal = document.getElementById('cookieModal');
-    if (modal) modal.style.display = 'none';
-  };
-
-  window.closeCookieBanner = function() {
-    // Dismiss without engaging: persist "necessary only" so the banner
-    // doesn't reappear on every page load, but no analytics/marketing consent is granted.
-    setConsent({
-      necessary: true,
-      analytics: false,
-      marketing: false
-    });
-    hideBanner();
-    closeCookieModal();
-    loadOptionalScripts(false, false);
-  };
-
-  window.savePreferences = function() {
-    const analytics = document.getElementById('analyticsToggle').checked;
-    const marketing = document.getElementById('marketingToggle').checked;
-
-    setConsent({
-      necessary: true,
-      analytics: analytics,
-      marketing: marketing
-    });
-
-    closeCookieModal();
-    hideBanner();
-    loadOptionalScripts(analytics, marketing);
-  };
-
-  function loadOptionalScripts(analytics, marketing) {
-    // Future: Load Google Analytics if analytics consent given
-    // Future: Load marketing/ad pixels if marketing consent given
-    console.log('Cookie consent saved. Analytics:', analytics, 'Marketing:', marketing);
-  }
-
-  // Initialize on page load
-  document.addEventListener('DOMContentLoaded', function() {
-    const consent = getConsent();
-    if (!consent || consent.version !== CONSENT_VERSION) {
-      showBanner();
-    } else {
-      loadOptionalScripts(consent.analytics, consent.marketing);
-    }
-  });
-})();
+});

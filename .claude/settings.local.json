@@ -8,7 +8,8 @@
       "Bash(ls \"C:\\\\Users\\\\illu1\\\\.claude\\\\projects\\\\c--Users-illu1-Desktop-illuminati-ai\\\\\" | head -20)",
       "Read(//c/Users/illu1/.claude/projects/**)",
       "Bash(node .tmp-seo.js)",
-      "Bash(rm .tmp-seo.js)"
+      "Bash(rm .tmp-seo.js)",
+      "WebFetch(domain:illuminatiai.tech)"
     ]
   }
 }

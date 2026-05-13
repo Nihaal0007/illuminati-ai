@@ -1,0 +1,95 @@
+I need you to replace the existing Google Form embed on contact.html with a native Netlify Form that matches the premium brand styling (black + gold #D4A437). The form should look 100% native to the Illuminati AI brand — no external embeds, no Google branding, fully custom-styled.
+
+TASK 1: Find the existing contact-form-section in contact.html (the section containing the Google Form iframe with google-form-wrapper class). Replace this ENTIRE section with a native Netlify Form that includes these fields:
+
+- Full Name (required, text input)
+- Email Address (required, email input)
+- Phone Number (required, tel input)
+- Company Name (optional, text input)
+- What Are You Interested In? (required, dropdown with these options: Custom AI Agents, Agentic Systems & Workflows, AI Infrastructure Engineering, OpenClaw Setup, AI Strategy & Audit, Website Engineering, Creator OS (Waitlist), Content Automation Suite (Waitlist), General Inquiry, Partnership Opportunity)
+- Approximate Budget Range (optional, dropdown: Under ₹50,000, ₹50,000 - ₹2,00,000, ₹2,00,000 - ₹5,00,000, ₹5,00,000 - ₹10,00,000, ₹10,00,000+, Need to discuss)
+- Tell Us About Your Project (required, textarea, 6 rows)
+- How Did You Hear About Us? (optional, dropdown: LinkedIn, Google Search, Referral, Social Media, Other)
+- Submit button labeled "Send Message" with a right arrow SVG icon
+
+The form MUST have these attributes for Netlify Forms to work:
+- name="contact"
+- method="POST"
+- data-netlify="true"
+- netlify-honeypot="bot-field"
+- action="/thank-you.html"
+
+The first input must be: <input type="hidden" name="form-name" value="contact">
+
+Add a honeypot hidden field for spam protection:
+<p class="hidden-field"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
+
+Keep the existing contact-form-header section above the form (with "— Reach Out —" label, "Send Us A Message" title, and subtitle) intact.
+
+Keep the existing contact information section (email, phone, address blocks) that appears above the form area completely intact.
+
+Below the form, add a contact-alternative section with:
+- Label: "Prefer to reach us directly?"
+- Email link: illuminati.ai@illuminatiai.tech
+- Phone link: +91 93262 94784
+
+TASK 2: In assets/styles.css:
+
+First, REMOVE all CSS rules related to the old Google Form:
+- .google-form-wrapper
+- .google-form-iframe
+- Any other google-form-* rules
+
+Then APPEND new CSS for the Netlify Form with these specifications:
+- Form container: rgba(212, 164, 55, 0.02) background, 1px solid rgba(212, 164, 55, 0.15) border, 4px border-radius, 3rem 2.5rem padding, 3rem margin-top
+- Hidden field with display: none for honeypot
+- Form rows: 2-column grid for name/email and phone/company pairs, 1.5rem gap
+- Labels: Inter font, 0.85rem, uppercase, 0.15em letter-spacing, rgba(212, 164, 55, 0.9) color
+- Inputs/selects/textareas: rgba(10, 10, 10, 0.6) background, 1px solid rgba(212, 164, 55, 0.25) border, 1rem 1.25rem padding, white color, Inter font
+- Placeholders: rgba(255, 255, 255, 0.3) color, Playfair Display italic
+- Focus state: #D4A437 border, rgba(10, 10, 10, 0.8) background, gold box-shadow
+- Custom dropdown arrow using SVG data URI with #D4A437 color
+- Dropdown options: black background, white text
+- Textarea: 150px min-height, resize vertical
+- Submit button: #D4A437 background, #0a0a0a text color, 1.25rem 3rem padding, Inter font, uppercase, 0.3em letter-spacing, 600 weight, flex display with arrow icon, hover state with #E8B847, translateY(-2px) and gold shadow
+- Mobile responsive: single column on screens under 768px, full-width submit button
+
+TASK 3: Check if thank-you.html exists. If it exists with proper styling, leave it alone. If it doesn't exist or is empty/broken, create/update it with:
+- Full HTML5 structure
+- Title: "Thank You — Illuminati AI"
+- Meta description, noindex robots tag, canonical to https://illuminatiai.tech/thank-you.html
+- Theme color #0a0a0a, favicon assets/logo.png
+- Google Fonts: Playfair Display, Inter, Bodoni Moda
+- Link to assets/styles.css
+- Body class: thank-you-page
+- Navigation matching other pages (logo + links to Home/Services/Products/How It Works/About/Contact)
+- Main section with: gold checkmark SVG icon (80x80), "— Message Received —" label, "Thank You" title in Playfair Display, "Your inquiry has reached us." subtitle, message paragraphs about 24-hour response, signature "— The Illuminati AI Team", two CTA buttons (Return Home primary gold + Explore Services secondary outlined)
+- Footer with copyright
+
+TASK 4: APPEND CSS for the thank-you.html page to assets/styles.css after the Netlify form CSS:
+- .thank-you-page: black background, min-height 100vh, flex column
+- .thank-you-main: flex 1, centered content, 4rem 2rem padding
+- .thank-you-container: max-width 700px, text-align center
+- .thank-you-icon: pulse animation (scale 1 to 1.05, 2s infinite)
+- .thank-you-label: Inter font, uppercase, 0.3em letter-spacing, gold color
+- .thank-you-title: Playfair Display, 700 weight, clamp(3rem, 7vw, 5.5rem), gold #D4A437
+- .thank-you-subtitle: Playfair italic, 1.5rem
+- .thank-you-message: Inter, 1.05rem, line-height 1.8, white 75% opacity
+- .thank-you-signature: Playfair italic, gold 70%, margin-top 2rem
+- .thank-you-actions: flex layout, 1.5rem gap, centered
+- .btn-primary in thank-you: gold background, black text, hover #E8B847 with translateY
+- .btn-secondary in thank-you: transparent background, gold text, gold border, hover increases border opacity
+- Mobile responsive: stack buttons vertically full-width under 600px
+
+CONSTRAINTS:
+- DO NOT change the existing contact information section (email, phone, address blocks) above the form
+- DO NOT change navigation, footer, animations
+- DO NOT modify other HTML files (only contact.html and thank-you.html if needed)
+- DO NOT change JSON-LD schema, meta tags, or any SEO elements already on the page
+- DO NOT change any unrelated CSS
+
+After completing, give me a summary of:
+1. What was changed in contact.html
+2. What CSS was removed from styles.css
+3. What CSS was added to styles.css
+4. Whether thank-you.html was created or updated
