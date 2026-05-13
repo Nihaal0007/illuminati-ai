@@ -1038,3 +1038,36 @@ function initFooterYear() {
   const y = document.getElementById('footYear');
   if (y) y.textContent = new Date().getFullYear();
 }
+
+/* Counter safety net — ensure stat numbers display their final value even
+   if the GSAP counter animation fails to fire (e.g., ScrollTrigger init
+   issue on Netlify). Runs 2.5s after DOM ready, slightly later than the
+   CSS safety net's 2s window so GSAP gets first crack at it.
+
+   Only intervenes when the counter is still visibly stuck at 0 — if GSAP
+   already finished and the displayed value matches the data-count target,
+   this function leaves the element alone. */
+(function counterSafetyNet() {
+  function applyFinalCount() {
+    document.querySelectorAll('[data-count]').forEach(el => {
+      const target = el.getAttribute('data-count');
+      const suffix = el.getAttribute('data-suffix') || '';
+      const currentText = (el.textContent || '').trim();
+
+      // Only intervene if the counter is still showing 0 or hasn't reached target
+      const targetText = target + suffix;
+      if (currentText === '0' || currentText === '0' + suffix ||
+          currentText === '0x' || currentText === '0%' ||
+          !currentText.includes(target)) {
+        el.textContent = targetText;
+      }
+    });
+  }
+
+  // Run after 2.5 seconds (giving GSAP time to fire first if it can)
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => setTimeout(applyFinalCount, 2500));
+  } else {
+    setTimeout(applyFinalCount, 2500);
+  }
+})();

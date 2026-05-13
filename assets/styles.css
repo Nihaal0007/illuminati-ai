@@ -5942,6 +5942,7 @@ body.home-page .manifesto .kicker {
    already render fine via existing reveal CSS).
    Reuses the @keyframes forceReveal defined above.
 ============================================================= */
+.subhead,
 .philosophy-section,
 .philosophy-section .title-section,
 .philosophy-section .lede,
