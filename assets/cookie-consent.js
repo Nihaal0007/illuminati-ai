@@ -62,6 +62,7 @@ function acceptAllCookies() {
 // Reject all non-essential cookies
 function rejectAllCookies() {
   storeConsent(true, false, false);
+  denyAnalyticsCookies();   // explicit deny signal to gtag (Consent Mode v2)
   hideCookieBanner();
 }
 
@@ -87,11 +88,26 @@ function showCookieBanner() {
   }
 }
 
-// Placeholder functions for future analytics/marketing integration
+// GA4 was loaded in <head> with analytics_storage:'denied' (Consent Mode v2).
+// Flipping it to 'granted' here lets gtag start dropping the _ga cookie and
+// sending hits. Safe to call multiple times (idempotent).
 function enableAnalyticsCookies() {
-  // When ready to add Google Analytics or similar, initialize it here
-  // Example: gtag('consent', 'update', { 'analytics_storage': 'granted' });
-  console.log('Analytics cookies enabled');
+  if (typeof gtag === 'function') {
+    gtag('consent', 'update', {
+      'analytics_storage': 'granted'
+    });
+  }
+}
+
+// Explicit deny signal — called from rejectAllCookies(). Ensures any prior
+// 'granted' state (e.g. from a previous accepted visit) is flipped back to
+// denied, so gtag stops setting cookies / sending hits.
+function denyAnalyticsCookies() {
+  if (typeof gtag === 'function') {
+    gtag('consent', 'update', {
+      'analytics_storage': 'denied'
+    });
+  }
 }
 
 function enableMarketingCookies() {
