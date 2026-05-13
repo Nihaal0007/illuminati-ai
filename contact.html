@@ -90,17 +90,103 @@
       </p>
       <div class="hairline reveal delay-3"></div>
 
-      <div class="contact-cta-section">
-        <a
-          href="https://docs.google.com/forms/d/e/1FAIpQLScCw_h5AU4Oo27JjGzNlWorE-nVByk8Oa8amoRu7iLzijWbag/viewform?usp=sharing&amp;ouid=105953927042746001941"
-          target="_blank"
-          rel="noopener"
-          class="contact-cta-btn">
-          Contact Us
-          <span class="contact-cta-arrow" aria-hidden="true">→</span>
-        </a>
-        <p class="contact-cta-note">Opens our intake form in a new tab</p>
-      </div>
+      <section class="contact-form-section">
+        <form
+          name="contact"
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+          action="/thank-you.html"
+          class="contact-form">
+          <input type="hidden" name="form-name" value="contact">
+          <p class="hidden-field"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
+
+          <div class="contact-form-row">
+            <div class="contact-form-field">
+              <label for="full-name">Full Name *</label>
+              <input type="text" id="full-name" name="full-name" required placeholder="Your full name">
+            </div>
+            <div class="contact-form-field">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email" required placeholder="you@company.com">
+            </div>
+          </div>
+
+          <div class="contact-form-row">
+            <div class="contact-form-field">
+              <label for="phone">Phone Number *</label>
+              <input type="tel" id="phone" name="phone" required placeholder="+91 90000 00000">
+            </div>
+            <div class="contact-form-field">
+              <label for="company">Company Name</label>
+              <input type="text" id="company" name="company" placeholder="Your company (optional)">
+            </div>
+          </div>
+
+          <div class="contact-form-field">
+            <label for="interest">What Are You Interested In? *</label>
+            <select id="interest" name="interest" required>
+              <option value="" disabled selected>— Select an option —</option>
+              <option value="Custom AI Agents">Custom AI Agents</option>
+              <option value="Agentic Systems &amp; Workflows">Agentic Systems &amp; Workflows</option>
+              <option value="AI Infrastructure Engineering">AI Infrastructure Engineering</option>
+              <option value="OpenClaw Setup">OpenClaw Setup</option>
+              <option value="AI Strategy &amp; Audit">AI Strategy &amp; Audit</option>
+              <option value="Website Engineering">Website Engineering</option>
+              <option value="Creator OS (Waitlist)">Creator OS (Waitlist)</option>
+              <option value="Content Automation Suite (Waitlist)">Content Automation Suite (Waitlist)</option>
+              <option value="General Inquiry">General Inquiry</option>
+              <option value="Partnership Opportunity">Partnership Opportunity</option>
+            </select>
+          </div>
+
+          <div class="contact-form-field">
+            <label for="budget">Approximate Budget Range</label>
+            <select id="budget" name="budget">
+              <option value="" disabled selected>— Select an option —</option>
+              <option value="Under ₹50,000">Under ₹50,000</option>
+              <option value="₹50,000 - ₹2,00,000">₹50,000 - ₹2,00,000</option>
+              <option value="₹2,00,000 - ₹5,00,000">₹2,00,000 - ₹5,00,000</option>
+              <option value="₹5,00,000 - ₹10,00,000">₹5,00,000 - ₹10,00,000</option>
+              <option value="₹10,00,000+">₹10,00,000+</option>
+              <option value="Need to discuss">Need to discuss</option>
+            </select>
+          </div>
+
+          <div class="contact-form-field">
+            <label for="message">Tell Us About Your Project *</label>
+            <textarea id="message" name="message" rows="6" required placeholder="Share a few sentences about what you're building or where you need help."></textarea>
+          </div>
+
+          <div class="contact-form-field">
+            <label for="referral">How Did You Hear About Us?</label>
+            <select id="referral" name="referral">
+              <option value="" disabled selected>— Select an option —</option>
+              <option value="LinkedIn">LinkedIn</option>
+              <option value="Google Search">Google Search</option>
+              <option value="Referral">Referral</option>
+              <option value="Social Media">Social Media</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <button type="submit" class="contact-form-submit">
+            <span>Send Message</span>
+            <svg class="contact-form-submit-arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </form>
+
+        <div class="contact-alternative">
+          <p class="contact-alt-label">Prefer to reach us directly?</p>
+          <p class="contact-alt-options">
+            <a href="mailto:illuminati.ai@illuminatiai.tech">illuminati.ai@illuminatiai.tech</a>
+            <span class="contact-alt-divider">·</span>
+            <a href="tel:+919326294784">+91 93262 94784</a>
+          </p>
+        </div>
+      </section>
 
       <div class="contact-info-block contact-info-block--reveal" data-contact-reveal>
         <div class="contact-info-item">
