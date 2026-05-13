@@ -5872,3 +5872,63 @@ body.home-page .manifesto .kicker {
   }
 }
 
+/* =============================================================
+   SAFETY NET — force-reveal hidden content after 2s
+   =============================================================
+   The site uses GSAP + ScrollTrigger to fade in/scroll-reveal a
+   lot of elements. On Netlify, GSAP/ScrollTrigger occasionally
+   fails to fire (CDN timing, ScrollTrigger.refresh() not running
+   after async asset load, etc.), leaving elements stuck at
+   opacity:0 / translated / blurred / letter-spacing-collapsed —
+   the content is in the HTML but invisible.
+
+   This rule force-applies the *final* (visible) state of every
+   GSAP-hidden selector via a CSS animation that:
+     • Has 0.001s duration with a 2s delay
+     • Uses animation-fill-mode: forwards so the end state sticks
+     • Does NOT use !important — when GSAP fires normally (well
+       under 2s), its inline-style transforms win and this CSS
+       animation effectively no-ops because GSAP has already
+       removed the hidden state. The fallback only becomes visible
+       if GSAP fails to settle within 2 seconds.
+
+   Trade-off: when the fallback DOES trigger, letter-spacing
+   resets to "normal" (not the designed end-value like 0.06em),
+   and elements snap into place rather than animating. Content
+   over polish — the page is never permanently broken.
+============================================================= */
+@keyframes forceReveal {
+  to {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+    filter: none;
+    letter-spacing: normal;
+  }
+}
+
+.reveal,
+.split-words,
+.split-words .char, .split-words .wd, .split-words .word, .split-words .ch,
+.reveal-mask, .reveal-mask .char, .reveal-mask .word-wrapper, .reveal-mask .char-wrapper,
+.char, .wd, .word, .ch,
+.stat, .stat .stat-emoji, .stat .stat-num, .stat h4, .stat p,
+.service-card, .step, .audience-card, .audience-card li, .audience-card .icon,
+.faq-item, .standard-card, .product-card,
+.kicker, .lede,
+.hairline,
+.legacy-body p,
+.form .field, .btn-submit,
+.hero-buttons, .trust-line,
+.service-card.slide-up-card,
+.service-card.slide-direction--left,
+.service-card.slide-direction--right,
+.service-card.slide-direction--up,
+.product-card.diagonal-from-left,
+.product-card.diagonal-from-right,
+.product-card.slide-from-bottom,
+.contact-info-block.contact-info-block--reveal,
+.contact-info-block.contact-info-block--reveal .contact-info-item {
+  animation: forceReveal 0.001s linear 2s forwards;
+}
+
