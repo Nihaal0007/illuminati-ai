@@ -5932,3 +5932,37 @@ body.home-page .manifesto .kicker {
   animation: forceReveal 0.001s linear 2s forwards;
 }
 
+/* =============================================================
+   SAFETY NET — Additional section-specific selectors
+   =============================================================
+   Covers about-page sections that the broader selector list above
+   missed: Our Philosophy heading + body, the entire Led By founder
+   block (header, card, photo, name, role, bio, LinkedIn pill), and
+   the Principles section's headline (the four standard cards inside
+   already render fine via existing reveal CSS).
+   Reuses the @keyframes forceReveal defined above.
+============================================================= */
+.philosophy-section,
+.philosophy-section .title-section,
+.philosophy-section .lede,
+.philosophy-section .kicker,
+.philosophy-section *,
+.founder-section,
+.founder-section-header,
+.founder-section-title,
+.founder-section-subtitle,
+.founder-grid,
+.founder-card,
+.founder-photo,
+.founder-photo-img,
+.founder-name,
+.founder-role,
+.founder-bio,
+.founder-social,
+.founder-social-link,
+.principles-section .title-section,
+.principles-section .lede,
+.principles-section .kicker {
+  animation: forceReveal 0.001s linear 2s forwards;
+}
+
