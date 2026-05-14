@@ -702,6 +702,17 @@ function initHowChooseReveal() {
         setTimeout(() => { ctaAnimationDone = true; tryReveal(); }, CTA_ANIM_MS);
       }
     }, 80);
+
+    // SAFETY FALLBACK: If the CTA never gets is-revealed (e.g., on Netlify
+    // where some animation timings differ), force-open the gate after 2s
+    // so the Why Choose section can still animate when scrolled into view.
+    setTimeout(() => {
+      if (!ctaAnimationDone) {
+        clearInterval(checkCta);
+        ctaAnimationDone = true;
+        tryReveal();
+      }
+    }, 2000);
   }
 
   function tryReveal() {
