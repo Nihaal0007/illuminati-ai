@@ -1064,3 +1064,75 @@ function initFooterYear() {
   if (y) y.textContent = new Date().getFullYear();
 }
 
+/* TARGETED SAFETY NET: Stat card content visibility on /how-it-works
+   The stat cards' h4 (headline) and p (description) get hidden by GSAP via
+   their parent .stat element's opacity:0 but the reveal animation sometimes
+   fails to fire on Netlify. This IntersectionObserver watches for stat cards
+   entering the viewport and ensures their content is visible. The counter
+   numbers also get their final values set so they display correctly. */
+(function statCardSafetyNet() {
+  const path = (location.pathname.split('/').pop() || '').toLowerCase();
+  if (path !== 'how-it-works.html' && path !== 'how-it-works') return;
+
+  function revealStats() {
+    document.querySelectorAll('.stat').forEach(stat => {
+      // Force stat container visible
+      stat.style.opacity = '1';
+      stat.style.visibility = 'visible';
+      stat.style.transform = 'none';
+
+      // Force h4 and p visible
+      const h4 = stat.querySelector('h4');
+      const p = stat.querySelector('p');
+      if (h4) {
+        h4.style.opacity = '1';
+        h4.style.visibility = 'visible';
+        h4.style.transform = 'none';
+      }
+      if (p) {
+        p.style.opacity = '1';
+        p.style.visibility = 'visible';
+        p.style.transform = 'none';
+      }
+
+      // Force counter numbers to final values
+      const num = stat.querySelector('.stat-num[data-count]');
+      if (num) {
+        const target = num.getAttribute('data-count');
+        const suffix = num.getAttribute('data-suffix') || '';
+        const currentText = (num.textContent || '').trim();
+        if (currentText === '0' || currentText === '0' + suffix ||
+            currentText === '0x' || currentText === '0%' ||
+            !currentText.includes(target)) {
+          num.textContent = target + suffix;
+        }
+      }
+    });
+  }
+
+  // Use IntersectionObserver: only fires when stats are actually in viewport
+  // so it doesn't cause "appear then animate" weirdness
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Wait 500ms to let GSAP try first, then force visible if needed
+          setTimeout(revealStats, 500);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    // Observe the whychoose section
+    const checkSection = setInterval(() => {
+      const section = document.querySelector('.whychoose-section');
+      if (section) {
+        clearInterval(checkSection);
+        observer.observe(section);
+      }
+    }, 100);
+  } else {
+    // Fallback: just reveal after 3 seconds
+    setTimeout(revealStats, 3000);
+  }
+})();
+
