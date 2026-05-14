@@ -301,7 +301,7 @@ function initHomeTierRowsReveal() {
    so they cascade in alongside the headline + sub-headline reveal. */
 function initAboutLegacyReveal() {
   const path = (location.pathname.split('/').pop() || '').toLowerCase();
-  if (path !== 'about.html') return;
+  if (path !== 'about.html' && path !== 'about') return;
   const paragraphs = document.querySelectorAll('.legacy-body p');
   if (!paragraphs.length) return;
   const rand = (min, max) => (Math.random() * (max - min) + min).toFixed(0);
@@ -342,7 +342,7 @@ function initAboutLegacyReveal() {
    of the viewport before the cascade kicks in. */
 function initAboutFounderReveal() {
   const path = (location.pathname.split('/').pop() || '').toLowerCase();
-  if (path !== 'about.html') return;
+  if (path !== 'about.html' && path !== 'about') return;
   const section = document.querySelector('.founder-section');
   if (!section) return;
 
@@ -368,7 +368,7 @@ function initAboutFounderReveal() {
    hero block. */
 function initAboutPhilosophyReveal() {
   const path = (location.pathname.split('/').pop() || '').toLowerCase();
-  if (path !== 'about.html') return;
+  if (path !== 'about.html' && path !== 'about') return;
   const section = document.querySelector('.philosophy-section');
   if (!section) return;
 
@@ -396,7 +396,7 @@ function initAboutPhilosophyReveal() {
    the user scrolls past Our Philosophy. */
 function initAboutPrinciplesReveal() {
   const path = (location.pathname.split('/').pop() || '').toLowerCase();
-  if (path !== 'about.html') return;
+  if (path !== 'about.html' && path !== 'about') return;
   const section = document.querySelector('.principles-section');
   if (!section) return;
 
@@ -424,7 +424,7 @@ function initAboutPrinciplesReveal() {
    Triggered only after the user scrolls past the Principles grid. */
 function initAboutPathForwardReveal() {
   const path = (location.pathname.split('/').pop() || '').toLowerCase();
-  if (path !== 'about.html') return;
+  if (path !== 'about.html' && path !== 'about') return;
   const section = document.querySelector('.path-forward');
   if (!section) return;
   const titleEl = section.querySelector('.title-section');
@@ -516,7 +516,7 @@ function initAboutPathForwardReveal() {
    Triggered only after the user scrolls past the page hero / boxes. */
 function initContactBoxesReveal() {
   const path = (location.pathname.split('/').pop() || '').toLowerCase();
-  if (path !== 'contact.html') return;
+  if (path !== 'contact.html' && path !== 'contact') return;
   const grid = document.querySelector('.contact-grid');
   const closing = document.querySelector('.closing');
   const closingText = document.querySelector('.closing-text');
@@ -600,7 +600,7 @@ function initContactBoxesReveal() {
    a subtle letter-spacing-condense reveal. */
 function initFAQItemsReveal() {
   const path = (location.pathname.split('/').pop() || '').toLowerCase();
-  if (path !== 'faq.html') return;
+  if (path !== 'faq.html' && path !== 'faq') return;
   const items = Array.from(document.querySelectorAll('.faq-item'));
   const tailLine = document.querySelector('.faq-tail-line');
   if (!items.length && !tailLine) return;
@@ -662,7 +662,7 @@ function initHomeTiersReveal() {
    Your AI Journey" CTA. */
 function initHowChooseReveal() {
   const path = (location.pathname.split('/').pop() || '').toLowerCase();
-  if (path !== 'how-it-works.html') return;
+  if (path !== 'how-it-works.html' && path !== 'how-it-works') return;
   const section = document.querySelector('.whychoose-section');
   if (!section) return;
 
@@ -710,10 +710,10 @@ function initHowFaqCtaSlam() {
   const path = (location.pathname.split('/').pop() || '').toLowerCase();
   let cta = null;
   let sentinel = null;
-  if (path === 'how-it-works.html') {
+  if (path === 'how-it-works.html' || path === 'how-it-works') {
     cta = document.querySelector('.steps-cta .hero-buttons')
        || document.querySelectorAll('.hero-buttons')[document.querySelectorAll('.hero-buttons').length - 1];
-  } else if (path === 'faq.html') {
+  } else if (path === 'faq.html' || path === 'faq') {
     // Last .hero-buttons sits below the FAQ accordion (not the nav CTA).
     const all = document.querySelectorAll('.hero-buttons');
     cta = all[all.length - 1];
@@ -779,7 +779,7 @@ function initHowFaqCtaSlam() {
    actually scrolled the cards' intended position into view. */
 function initProductsCardSlide() {
   const path = (location.pathname.split('/').pop() || '').toLowerCase();
-  if (path !== 'products.html') return;
+  if (path !== 'products.html' && path !== 'products') return;
   const cards = Array.from(document.querySelectorAll('.products-grid .product-card'));
   if (cards.length < 2) return;
 
@@ -852,7 +852,7 @@ function initProductsCardSlide() {
    once the viewport has scrolled past its intended layout position. */
 function initServicesCardSlide() {
   const path = (location.pathname.split('/').pop() || '').toLowerCase();
-  if (path !== 'services.html') return;
+  if (path !== 'services.html' && path !== 'services') return;
   const allCards = Array.from(document.querySelectorAll('.services-grid .service-card'));
   if (!allCards.length) return;
 
