@@ -336,27 +336,41 @@ function initAboutLegacyReveal() {
 }
 
 /* ABOUT PAGE — "The Order / Led By" founder reveal.
-   Section header fades up first, then the founder card cascades after.
-   Conservative trigger (0.55) so it only fires after the user has actually
-   scrolled past the Legacy hero — the section needs to be in the upper half
-   of the viewport before the cascade kicks in. */
+   Trigger is gated on the ENTIRE Legacy section (title + subhead +
+   hairline + both body paragraphs) clearing the viewport top, so the
+   cinematic header animation only fires once "Built to last." has fully
+   scrolled off the screen and the user is genuinely in founder territory.
+
+   The header cascade: section-label letter-spacing collapses, "Led By"
+   drops in with 3D rotateX + scale + blur, subtitle fades up. Founder
+   card photo/name/role/bio/social stagger in afterwards. */
 function initAboutFounderReveal() {
   const path = (location.pathname.split('/').pop() || '').toLowerCase();
   if (path !== 'about.html' && path !== 'about') return;
   const section = document.querySelector('.founder-section');
   if (!section) return;
 
-  const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+  // Anchor trigger on the bottom of the FULL Legacy <section> (founder's
+  // previous sibling). Fall back to .legacy-body if structure changes.
+  const legacySection = section.previousElementSibling;
+  const legacyEl = legacySection || document.querySelector('.legacy-body');
+  const legacyBottom = legacyEl
+    ? legacyEl.getBoundingClientRect().bottom + window.scrollY
+    : section.getBoundingClientRect().top + window.scrollY;
 
   let userScrolled = false;
   function tick() {
     if (!userScrolled) return;
     if (section.classList.contains('is-revealed')) return;
-    const triggerLine = window.scrollY + window.innerHeight * 0.55;
-    if (triggerLine > sectionTop) section.classList.add('is-revealed');
+    // Fire only when the entire Legacy section has scrolled past the
+    // viewport top (no buffer — strict). At this moment "Built to last."
+    // is gone and the founder section's top edge is at/near viewport top.
+    if (window.scrollY > legacyBottom) {
+      section.classList.add('is-revealed');
+    }
   }
   window.addEventListener('scroll', () => {
-    if (!userScrolled && window.scrollY > 120) userScrolled = true;
+    if (!userScrolled && window.scrollY > 80) userScrolled = true;
     tick();
   }, { passive: true });
 }
@@ -1039,35 +1053,3 @@ function initFooterYear() {
   if (y) y.textContent = new Date().getFullYear();
 }
 
-/* Counter safety net — ensure stat numbers display their final value even
-   if the GSAP counter animation fails to fire (e.g., ScrollTrigger init
-   issue on Netlify). Runs 2.5s after DOM ready, slightly later than the
-   CSS safety net's 2s window so GSAP gets first crack at it.
-
-   Only intervenes when the counter is still visibly stuck at 0 — if GSAP
-   already finished and the displayed value matches the data-count target,
-   this function leaves the element alone. */
-(function counterSafetyNet() {
-  function applyFinalCount() {
-    document.querySelectorAll('[data-count]').forEach(el => {
-      const target = el.getAttribute('data-count');
-      const suffix = el.getAttribute('data-suffix') || '';
-      const currentText = (el.textContent || '').trim();
-
-      // Only intervene if the counter is still showing 0 or hasn't reached target
-      const targetText = target + suffix;
-      if (currentText === '0' || currentText === '0' + suffix ||
-          currentText === '0x' || currentText === '0%' ||
-          !currentText.includes(target)) {
-        el.textContent = targetText;
-      }
-    });
-  }
-
-  // Run after 2.5 seconds (giving GSAP time to fire first if it can)
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => setTimeout(applyFinalCount, 2500));
-  } else {
-    setTimeout(applyFinalCount, 2500);
-  }
-})();

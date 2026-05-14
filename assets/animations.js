@@ -484,12 +484,15 @@
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: trigger || lede || kicker,
-          start: 'top 88%',
+          // Fire as soon as the kicker peeks into the viewport so the
+          // cinematic drop-in starts before the 2s CSS safety net would
+          // otherwise force the kicker visible.
+          start: 'top 85%',
           once: true
         }
       });
 
-      // Kicker drops in (1.5s, expo.out) — same timeline position as lede.
+      // Kicker drops in (slow + cinematic, expo.out).
       if (kicker) {
         tl.to(kicker, {
           opacity: 1,
@@ -497,13 +500,13 @@
           scale: 1,
           rotateX: 0,
           filter: 'blur(0px) brightness(1)',
-          duration: 1.5,
+          duration: 2.2,
           ease: 'expo.out'
         }, 0);
       }
 
       // Lede chars converge from scatter — random stagger so it feels chaotic
-      // but resolves into clean order. No shimmer wave afterwards.
+      // but resolves into clean order.
       if (ledeChars.length) {
         tl.to(ledeChars, {
           xPercent: 0,
@@ -512,9 +515,9 @@
           scale: 1,
           opacity: 1,
           filter: 'blur(0px) brightness(1)',
-          duration: 1.7,
+          duration: 2.4,
           ease: 'expo.out',
-          stagger: { each: 0.018, from: 'random' }
+          stagger: { each: 0.028, from: 'random' }
         }, 0);
       }
     });
