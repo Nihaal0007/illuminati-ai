@@ -1,0 +1,24 @@
+﻿# Environment variables (NEVER commit secrets)
+.env
+.env.local
+.env.production
+.env.*.local
+
+# Node.js dependencies (huge folder, install via npm)
+node_modules/
+
+# Netlify
+.netlify/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Build/cache files
+*.log
+npm-debug.log*
+.cache/

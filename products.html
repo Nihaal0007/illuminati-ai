@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -46,6 +46,7 @@
 <meta name="twitter:title" content="Products – Illuminati AI">
 <meta name="twitter:image" content="https://illuminatiai.tech/assets/logo.png">
 <link rel="stylesheet" href="assets/styles.css">
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
 
@@ -66,7 +67,14 @@
     <li><a class="nav-link" href="faq.html"          data-nav="faq.html"          data-page-link>FAQ</a></li>
     <li><a class="nav-link" href="contact.html"      data-nav="contact.html"      data-page-link>Contact</a></li>
   </ul>
-  <div class="nav-cta"><a href="contact.html" class="btn-nav" data-page-link>Book a Free Session</a></div>
+  <div class="nav-cta"><button class="nav-cart-btn" id="navCartBtn" aria-label="Open cart">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="9" cy="21" r="1"></circle>
+      <circle cx="20" cy="21" r="1"></circle>
+      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+    </svg>
+    <span class="cart-badge" id="cartBadge" style="display:none;">0</span>
+  </button><a href="contact.html" class="btn-nav" data-page-link>Book a Free Session</a></div>
   <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
@@ -91,23 +99,23 @@
 
       <div class="products-grid">
 
-        <article class="product-card reveal delay-1">
-          <span class="status-badge">Coming Soon</span>
+        <article class="product-card reveal delay-1" data-product-id="creator-os" data-product-price="10000">
           <h3 class="product-name">Creator OS</h3>
           <p class="product-tagline">The Operating System for Modern Creators.</p>
           <p class="product-desc">A unified AI-powered workspace where content creators run their entire creative operation. From ideation to publication to monetisation, Creator OS replaces a stack of fragmented tools with a single intelligent system.</p>
-          <div class="product-early-bird">
-            <div class="early-bird-icon">
-              <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-2-12.5l5 3-5 3z"/>
-              </svg>
-            </div>
-            <div class="early-bird-text">
-              <h4>Early-Bird Offer</h4>
-              <p>Join the waitlist now and get <strong>2 weeks of free access</strong> when Creator OS launches.</p>
-            </div>
-          </div>
-          <a href="contact.html" class="product-waitlist-btn" data-page-link>Join Waitlist</a>
+          <p class="product-price">₹10,000 <span class="product-price-suffix">/ month</span></p>
+          <button class="add-to-cart-btn"
+                  data-product-id="creator-os"
+                  data-product-name="Creator OS"
+                  data-product-price="10000"
+                  data-max-quantity="1">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            <span>Add to Cart</span>
+          </button>
         </article>
 
         <article class="product-card reveal delay-2">
@@ -242,6 +250,8 @@
   </div>
 </div>
 
+<script src="assets/cart.js"></script>
+<script src="assets/razorpay-checkout.js"></script>
 <script src="assets/cookie-consent.js"></script>
 </body>
 </html>
