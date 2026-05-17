@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Nihaal0007/illuminati-ai#readme",
   "dependencies": {
-    "razorpay": "^2.9.6"
+    "razorpay": "^2.9.6",
+    "resend": "^6.12.3"
   }
 }

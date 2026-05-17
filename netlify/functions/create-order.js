@@ -24,7 +24,15 @@ exports.handler = async (event) => {
   }
 
   try {
-    const { amount, currency = 'INR', receipt } = JSON.parse(event.body || '{}');
+    const {
+      amount,
+      currency = 'INR',
+      receipt,
+      customer_name,
+      customer_email,
+      customer_phone,
+      product_name
+    } = JSON.parse(event.body || '{}');
 
     // Validate amount
     if (!amount || amount < 100) {
@@ -33,6 +41,22 @@ exports.handler = async (event) => {
         headers,
         body: JSON.stringify({ error: 'Amount must be at least 100 paise (₹1)' })
       };
+    }
+
+    // Validate customer details
+    const trimmedName = (customer_name || '').trim();
+    const trimmedEmail = (customer_email || '').trim();
+    const rawPhone = (customer_phone || '').trim();
+    const phoneDigits = rawPhone.replace(/^\+?91/, '').replace(/\D/g, '');
+
+    if (trimmedName.length < 2) {
+      return { statusCode: 400, headers, body: JSON.stringify({ error: 'Full name must be at least 2 characters', field: 'customer_name' }) };
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
+      return { statusCode: 400, headers, body: JSON.stringify({ error: 'Valid email is required', field: 'customer_email' }) };
+    }
+    if (phoneDigits.length !== 10) {
+      return { statusCode: 400, headers, body: JSON.stringify({ error: 'Phone must be 10 digits (optional +91 prefix)', field: 'customer_phone' }) };
     }
 
     // Validate environment variables
@@ -57,7 +81,11 @@ exports.handler = async (event) => {
       currency,
       receipt: receipt || `receipt_${Date.now()}`,
       notes: {
-        source: 'illuminati-ai-website'
+        source: 'illuminati-ai-website',
+        customer_name: trimmedName,
+        customer_email: trimmedEmail,
+        customer_phone: phoneDigits,
+        product_name: (product_name || 'Illuminati AI Product').toString().slice(0, 256)
       }
     });
 
