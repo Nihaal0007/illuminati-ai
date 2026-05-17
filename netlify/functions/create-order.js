@@ -72,13 +72,29 @@ exports.handler = async (event) => {
       })
     };
   } catch (error) {
-    console.error('Create order error:', error);
+    // Razorpay SDK errors are not standard Error objects:
+    //   { statusCode: 401, error: { description: 'Authentication failed', code: 'BAD_REQUEST_ERROR' } }
+    // error.message is undefined for those, so extract from the SDK shape too.
+    const rzpDesc = error && error.error && error.error.description;
+    const rzpCode = error && error.error && error.error.code;
+    const rzpStatus = error && error.statusCode;
+    const detailsMsg = (error && error.message) || rzpDesc || 'Unknown error';
+
+    console.error('Create order error:', {
+      message: error && error.message,
+      statusCode: rzpStatus,
+      code: rzpCode,
+      description: rzpDesc
+    });
+
     return {
       statusCode: 500,
       headers,
       body: JSON.stringify({
         error: 'Failed to create order',
-        details: error.message
+        details: detailsMsg,
+        code: rzpCode || null,
+        razorpay_status: rzpStatus || null
       })
     };
   }

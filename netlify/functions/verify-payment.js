@@ -81,14 +81,24 @@ exports.handler = async (event) => {
       };
     }
   } catch (error) {
-    console.error('Verify payment error:', error);
+    const rzpDesc = error && error.error && error.error.description;
+    const rzpCode = error && error.error && error.error.code;
+    const detailsMsg = (error && error.message) || rzpDesc || 'Unknown error';
+
+    console.error('Verify payment error:', {
+      message: error && error.message,
+      code: rzpCode,
+      description: rzpDesc
+    });
+
     return {
       statusCode: 500,
       headers,
       body: JSON.stringify({
         verified: false,
         error: 'Verification failed',
-        details: error.message
+        details: detailsMsg,
+        code: rzpCode || null
       })
     };
   }
