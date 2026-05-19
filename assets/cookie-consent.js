@@ -81,7 +81,7 @@ function hideCookieBanner() {
 function showCookieBanner() {
   const banner = document.getElementById('cookie-consent-banner');
   if (banner) {
-    banner.style.display = 'block';
+    banner.style.display = 'flex';
     setTimeout(() => {
       banner.style.opacity = '1';
     }, 100);
