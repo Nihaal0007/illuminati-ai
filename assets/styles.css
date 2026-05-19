@@ -3021,9 +3021,15 @@ body.home-page .manifesto .kicker {
   border-top: 2px solid var(--gold);
   padding: 28px;
   text-align: left;
-  transition: transform 0.5s var(--ease-luxe), box-shadow 0.5s var(--ease-luxe);
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.5s var(--ease-luxe);
+  will-change: opacity, transform;
 }
-.stat:hover { transform: translateY(-6px); box-shadow: 0 12px 32px var(--gold-glow-soft); }
+.stat.is-revealed { opacity: 1; transform: none; }
+.stat.is-revealed:hover { transform: translateY(-6px); box-shadow: 0 12px 32px var(--gold-glow-soft); }
 .stat .stat-emoji { font-size: 22px; margin-bottom: 12px; filter: drop-shadow(0 0 6px var(--gold-glow-soft)); }
 .stat .stat-num {
   font-family: 'Playfair Display', serif;
@@ -3048,8 +3054,8 @@ body.home-page .manifesto .kicker {
   margin-bottom: 10px;
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .stat p {
   font-family: 'Raleway', sans-serif;
@@ -3059,18 +3065,18 @@ body.home-page .manifesto .kicker {
   line-height: 1.65;
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .stat.is-revealed h4 {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 0.55s;
+  transition-delay: 0.15s;
 }
 .stat.is-revealed p {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 0.72s;
+  transition-delay: 0.25s;
 }
 @media (prefers-reduced-motion: reduce) {
   .stat h4, .stat p {
