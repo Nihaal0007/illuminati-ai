@@ -350,22 +350,18 @@ function initAboutFounderReveal() {
   const section = document.querySelector('.founder-section');
   if (!section) return;
 
-  // Anchor trigger on the bottom of the FULL Legacy <section> (founder's
-  // previous sibling). Fall back to .legacy-body if structure changes.
-  const legacySection = section.previousElementSibling;
-  const legacyEl = legacySection || document.querySelector('.legacy-body');
-  const legacyBottom = legacyEl
-    ? legacyEl.getBoundingClientRect().bottom + window.scrollY
-    : section.getBoundingClientRect().top + window.scrollY;
+  // Capture the founder section's natural top edge once.
+  const sectionTop = section.getBoundingClientRect().top + window.scrollY;
 
   let userScrolled = false;
   function tick() {
     if (!userScrolled) return;
     if (section.classList.contains('is-revealed')) return;
-    // Fire only when the entire Legacy section has scrolled past the
-    // viewport top (no buffer — strict). At this moment "Built to last."
-    // is gone and the founder section's top edge is at/near viewport top.
-    if (window.scrollY > legacyBottom) {
+    // Fire as soon as the founder section's top edge enters the bottom
+    // 15% of the viewport — i.e., the moment the user scrolls past
+    // "Built to last." and the section starts peeking into view.
+    const triggerLine = window.scrollY + window.innerHeight * 0.85;
+    if (triggerLine > sectionTop) {
       section.classList.add('is-revealed');
     }
   }
