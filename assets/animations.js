@@ -492,7 +492,7 @@
         }
       });
 
-      // Kicker drops in (slow + cinematic, expo.out).
+      // Kicker drops in (snappy but cinematic via expo.out).
       if (kicker) {
         tl.to(kicker, {
           opacity: 1,
@@ -500,13 +500,13 @@
           scale: 1,
           rotateX: 0,
           filter: 'blur(0px) brightness(1)',
-          duration: 2.2,
+          duration: 0.7,
           ease: 'expo.out'
         }, 0);
       }
 
       // Lede chars converge from scatter — random stagger so it feels chaotic
-      // but resolves into clean order.
+      // but resolves into clean order. Total reveal ≈ 1.4s.
       if (ledeChars.length) {
         tl.to(ledeChars, {
           xPercent: 0,
@@ -515,9 +515,9 @@
           scale: 1,
           opacity: 1,
           filter: 'blur(0px) brightness(1)',
-          duration: 2.4,
+          duration: 0.55,
           ease: 'expo.out',
-          stagger: { each: 0.028, from: 'random' }
+          stagger: { each: 0.010, from: 'random' }
         }, 0);
       }
     });
