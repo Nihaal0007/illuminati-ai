@@ -36,7 +36,7 @@
    RESET & BASE
 ========================================================= */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 body {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
@@ -1290,9 +1290,7 @@ body.cursor-card .cursor-ring {
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 24px;
   height: 72px;
-  background: rgba(10,10,10,0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(10,10,10,0.92);
   border-bottom: 1px solid transparent;
   transition: height 0.4s var(--ease-soft), background 0.4s var(--ease-soft), border 0.4s var(--ease-soft);
 }
