@@ -5879,13 +5879,13 @@ body.home-page .manifesto .kicker {
 .founder-section .section-label {
   opacity: 0;
   letter-spacing: 0.85em;
-  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-              letter-spacing 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              letter-spacing 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .founder-section.is-revealed .section-label {
   opacity: 1;
   letter-spacing: 0.3em;
-  transition-delay: 0.15s;
+  transition-delay: 0.05s;
 }
 
 /* "Led By" title: cinematic 3D drop-in with scale + blur dissolve */
@@ -5895,15 +5895,15 @@ body.home-page .manifesto .kicker {
   filter: blur(15px) brightness(1.8);
   transform-origin: 50% 100%;
   transform-style: preserve-3d;
-  transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 1.4s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .founder-section.is-revealed .founder-section-title {
   opacity: 1;
   transform: translateY(0) scale(1) rotateX(0deg);
   filter: blur(0) brightness(1);
-  transition-delay: 0.4s;
+  transition-delay: 0.20s;
 }
 
 /* Subtitle: soft up-fade with slight scale */
@@ -5911,21 +5911,21 @@ body.home-page .manifesto .kicker {
   opacity: 0;
   transform: translateY(20px) scale(0.96);
   filter: blur(6px);
-  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 1s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 1s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.55s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .founder-section.is-revealed .founder-section-subtitle {
   opacity: 1;
   transform: translateY(0) scale(1);
   filter: blur(0);
-  transition-delay: 1s;
+  transition-delay: 0.35s;
 }
 
 .founder-section.is-revealed .founder-card {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 0.22s;
+  transition-delay: 0.50s;
 }
 
 .founder-section .founder-photo,
@@ -5939,11 +5939,11 @@ body.home-page .manifesto .kicker {
               transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.founder-section.is-revealed .founder-photo  { opacity: 1; transform: translateY(0); transition-delay: 0.35s; }
-.founder-section.is-revealed .founder-name   { opacity: 1; transform: translateY(0); transition-delay: 0.48s; }
-.founder-section.is-revealed .founder-role   { opacity: 1; transform: translateY(0); transition-delay: 0.58s; }
-.founder-section.is-revealed .founder-bio    { opacity: 1; transform: translateY(0); transition-delay: 0.68s; }
-.founder-section.is-revealed .founder-social { opacity: 1; transform: translateY(0); transition-delay: 0.78s; }
+.founder-section.is-revealed .founder-photo  { opacity: 1; transform: translateY(0); transition-delay: 0.65s; }
+.founder-section.is-revealed .founder-name   { opacity: 1; transform: translateY(0); transition-delay: 0.78s; }
+.founder-section.is-revealed .founder-role   { opacity: 1; transform: translateY(0); transition-delay: 0.88s; }
+.founder-section.is-revealed .founder-bio    { opacity: 1; transform: translateY(0); transition-delay: 0.98s; }
+.founder-section.is-revealed .founder-social { opacity: 1; transform: translateY(0); transition-delay: 1.08s; }
 
 @media (prefers-reduced-motion: reduce) {
   .founder-section .founder-section-header,
