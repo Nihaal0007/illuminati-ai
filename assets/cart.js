@@ -1,8 +1,28 @@
 /* Cart state management for Illuminati AI
    Uses localStorage to persist across page loads.
-   Exposes window.IlluminatiCart for other scripts. */
+   Exposes window.IlluminatiCart for other scripts.
+
+   GATED by window.ILLUMINATI_FLAGS.CART_UI_ENABLED (see feature-flags.js +
+   DISABLED_FEATURES.md). When the flag is false the IIFE returns early
+   after exporting a no-op IlluminatiCart so any external caller doesn't
+   crash. */
 
 (function() {
+  if (!(window.ILLUMINATI_FLAGS && window.ILLUMINATI_FLAGS.CART_UI_ENABLED)) {
+    window.IlluminatiCart = {
+      getCart:       function () { return []; },
+      addItem:       function () {},
+      removeItem:    function () {},
+      updateQuantity:function () {},
+      clearCart:     function () {},
+      getTotal:      function () { return 0; },
+      getItemCount:  function () { return 0; },
+      openDrawer:    function () {},
+      closeDrawer:   function () {}
+    };
+    return;
+  }
+
   const CART_KEY = 'illuminati_cart_v3';
 
   function getCart() {

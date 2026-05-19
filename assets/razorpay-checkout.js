@@ -3,9 +3,19 @@
    2. Customer-details modal collects name/email/phone (validated)
    3. /api/create-order is called with cart + customer details
    4. Razorpay modal opens (prefilled with the customer details)
-   5. /api/verify-payment confirms signature on success */
+   5. /api/verify-payment confirms signature on success
+
+   GATED by window.ILLUMINATI_FLAGS.CHECKOUT_ENABLED (see feature-flags.js
+   + DISABLED_FEATURES.md). When the flag is false the IIFE returns early
+   after exporting a no-op IlluminatiCheckout.start so any button click
+   that reaches start() is a silent no-op instead of an error. */
 
 (function() {
+  if (!(window.ILLUMINATI_FLAGS && window.ILLUMINATI_FLAGS.CHECKOUT_ENABLED)) {
+    window.IlluminatiCheckout = { start: function () {} };
+    return;
+  }
+
 
   // ── Customer details modal ─────────────────────────────────────────────────
   // Returns a Promise that resolves with { name, email, phone } on submit,

@@ -46,6 +46,7 @@
 <meta name="twitter:title" content="Products – Illuminati AI">
 <meta name="twitter:image" content="https://illuminatiai.tech/assets/logo.png">
 <link rel="stylesheet" href="assets/styles.css">
+<script src="assets/feature-flags.js"></script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
@@ -67,7 +68,7 @@
     <li><a class="nav-link" href="faq.html"          data-nav="faq.html"          data-page-link>FAQ</a></li>
     <li><a class="nav-link" href="contact.html"      data-nav="contact.html"      data-page-link>Contact</a></li>
   </ul>
-  <div class="nav-cta"><button class="nav-cart-btn" id="navCartBtn" aria-label="Open cart">
+  <div class="nav-cta"><button class="nav-cart-btn cart-only" id="navCartBtn" aria-label="Open cart">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="9" cy="21" r="1"></circle>
       <circle cx="20" cy="21" r="1"></circle>
@@ -104,7 +105,7 @@
           <p class="product-tagline">The Operating System for Modern Creators.</p>
           <p class="product-desc">A unified AI-powered workspace where content creators run their entire creative operation. From ideation to publication to monetisation, Creator OS replaces a stack of fragmented tools with a single intelligent system.</p>
           <p class="product-price">₹10,000 <span class="product-price-suffix">/ month</span></p>
-          <button class="add-to-cart-btn"
+          <button class="add-to-cart-btn checkout-only"
                   data-product-id="creator-os"
                   data-product-name="Creator OS"
                   data-product-price="10000"

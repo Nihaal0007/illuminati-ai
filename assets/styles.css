@@ -6529,3 +6529,14 @@ body.customer-modal-open {
     width: 100%;
   }
 }
+
+/* ─── FEATURE-FLAG VISIBILITY GATES ───────────────────────────
+   Anything marked .cart-only is hidden when the cart UI flag is off.
+   Anything marked .checkout-only is hidden when the Razorpay checkout
+   flag is off. Both data attributes are set by assets/feature-flags.js
+   in the <head> before first paint, so there is no flash.
+   See DISABLED_FEATURES.md for the restore procedure. */
+html[data-cart-enabled="false"] .cart-only,
+html[data-checkout-enabled="false"] .checkout-only {
+  display: none !important;
+}
