@@ -1110,8 +1110,11 @@ function initFooterYear() {
     clearGsapInline(stat.querySelector('h4'));
     clearGsapInline(stat.querySelector('p'));
     stat.classList.add('is-revealed');
+    // The .stat-num fades in at 0.20s via CSS transition-delay. Wait for
+    // that visual reveal before kicking off the count-up so the digits
+    // don't tick away invisibly behind opacity:0.
     const num = stat.querySelector('.stat-num[data-count]');
-    if (num) animateCount(num);
+    if (num) setTimeout(() => animateCount(num), 200);
   }
 
   function revealAllStaggered() {

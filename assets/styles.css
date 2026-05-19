@@ -3030,7 +3030,15 @@ body.home-page .manifesto .kicker {
 }
 .stat.is-revealed { opacity: 1; transform: none; }
 .stat.is-revealed:hover { transform: translateY(-6px); box-shadow: 0 12px 32px var(--gold-glow-soft); }
-.stat .stat-emoji { font-size: 22px; margin-bottom: 12px; filter: drop-shadow(0 0 6px var(--gold-glow-soft)); }
+.stat .stat-emoji {
+  font-size: 22px;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 0 6px var(--gold-glow-soft));
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
 .stat .stat-num {
   font-family: 'Playfair Display', serif;
   font-weight: 800;
@@ -3043,6 +3051,20 @@ body.home-page .manifesto .kicker {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   margin-bottom: 14px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.stat.is-revealed .stat-emoji {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0.10s;
+}
+.stat.is-revealed .stat-num {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0.20s;
 }
 .stat h4 {
   font-family: 'Playfair Display', serif;
@@ -3071,12 +3093,12 @@ body.home-page .manifesto .kicker {
 .stat.is-revealed h4 {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 0.15s;
+  transition-delay: 0.35s;
 }
 .stat.is-revealed p {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 0.25s;
+  transition-delay: 0.50s;
 }
 @media (prefers-reduced-motion: reduce) {
   .stat h4, .stat p {
