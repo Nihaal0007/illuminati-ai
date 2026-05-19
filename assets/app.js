@@ -1121,6 +1121,11 @@ function initFooterYear() {
   }
 
   if ('IntersectionObserver' in window) {
+    // Observe the .stats-grid (NOT the whole .whychoose-section) so the
+    // reveal only fires after the user has scrolled past the headline +
+    // subheadline and the grid itself is entering the viewport.
+    // rootMargin -10% on the bottom means we wait until the grid is
+    // clearly in view, not just at the very edge.
     const observer = new IntersectionObserver((entries, obs) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -1128,13 +1133,13 @@ function initFooterYear() {
           revealAllStaggered();
         }
       });
-    }, { threshold: 0.30 });
+    }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
 
-    const checkSection = setInterval(() => {
-      const section = document.querySelector('.whychoose-section');
-      if (section) {
-        clearInterval(checkSection);
-        observer.observe(section);
+    const checkGrid = setInterval(() => {
+      const grid = document.querySelector('.stats-grid');
+      if (grid) {
+        clearInterval(checkGrid);
+        observer.observe(grid);
       }
     }, 100);
   } else {
