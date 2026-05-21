@@ -86,7 +86,7 @@ exports.handler = async (event) => {
     return resend.emails.send({
       from: 'Illuminati AI <orders@illuminatiai.tech>',
       to: customerEmail,
-      replyTo: 'illuminatiai.team@gmail.com',
+      replyTo: 'illuminati.ai@illuminatiai.tech',
       subject: `Order Confirmation - ₹${amountRupees.toLocaleString('en-IN')} received`,
       html: customerEmailHtml({
         customerName, productName, amountRupees, currency, paymentId, orderId, istDateTime
@@ -102,7 +102,7 @@ exports.handler = async (event) => {
     return resend.emails.send({
       from: 'Illuminati AI Alerts <alerts@illuminatiai.tech>',
       to: ownerEmail,
-      replyTo: 'illuminatiai.team@gmail.com',
+      replyTo: 'illuminati.ai@illuminatiai.tech',
       subject: `🎉 New Sale! ₹${amountRupees.toLocaleString('en-IN')} from ${customerName}`,
       html: ownerEmailHtml({
         customerName, customerEmail, customerPhone, productName,
@@ -212,7 +212,7 @@ function customerEmailHtml({ customerName, productName, amountRupees, currency, 
             <td align="center" style="padding:36px 32px;border-top:1px solid rgba(212,164,55,0.12);">
               <p style="margin:0 0 6px;font-size:12px;color:rgba(232,232,232,0.55);">
                 Need help? Reply to this email or write to
-                <a href="mailto:illuminatiai.team@gmail.com" style="color:#D4A437;text-decoration:none;">illuminatiai.team@gmail.com</a>
+                <a href="mailto:illuminati.ai@illuminatiai.tech" style="color:#D4A437;text-decoration:none;">illuminati.ai@illuminatiai.tech</a>
               </p>
               <p style="margin:0;font-size:11px;color:rgba(232,232,232,0.4);letter-spacing:0.08em;">
                 Illuminati AI · Mumbai, India
