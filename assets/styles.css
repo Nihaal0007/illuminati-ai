@@ -1510,8 +1510,40 @@ body.cursor-card .cursor-ring {
   box-shadow: 0 0 24px var(--gold-glow-soft);
 }
 
-/* GSAP-managed reveals — keep classes inert for layout only */
-.reveal { /* GSAP sets initial state */ }
+/* === SCROLL REVEAL: Three-layer fallback === */
+/* Layer 1: Initial hidden state (works even before JS loads) */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+/* Layer 2: Visible state (added by IntersectionObserver or GSAP) */
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Layer 3: GSAP failure override — body.no-gsap class added by JS at 2s if GSAP missing */
+/* Smooth fade-in when GSAP fails, instead of snap-visible */
+body.no-gsap .reveal {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: opacity 0.4s ease !important;
+}
+
+/* Respect user's reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
 .split-words { /* GSAP+SplitText handles char/word splitting */ }
 .delay-1, .delay-2, .delay-3, .delay-4, .delay-5 {}
 

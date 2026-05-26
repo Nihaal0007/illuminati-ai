@@ -48,6 +48,48 @@
     }
   }
 
+  // === IntersectionObserver fallback for mobile / GSAP-failed scenarios ===
+  (function initRevealObserver() {
+    // Skip if IntersectionObserver not supported
+    if (!('IntersectionObserver' in window)) {
+      document.body.classList.add('no-gsap');
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      rootMargin: '0px 0px -10% 0px',
+      threshold: 0.1
+    });
+
+    // Observe all .reveal elements
+    const startObserving = () => {
+      document.querySelectorAll('.reveal').forEach((el) => {
+        observer.observe(el);
+      });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', startObserving);
+    } else {
+      startObserving();
+    }
+  })();
+
+  // === GSAP failure detection — adds body.no-gsap if GSAP didn't load ===
+  setTimeout(() => {
+    if (typeof gsap === 'undefined') {
+      document.body.classList.add('no-gsap');
+      console.warn('[animations] GSAP failed to load — using CSS fallback');
+    }
+  }, 2000);
+
   // ===============================================================
   // LENIS — smooth scrolling
   // ===============================================================
