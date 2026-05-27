@@ -48,9 +48,9 @@
     }
   }
 
-  // === IntersectionObserver fallback for mobile / GSAP-failed scenarios ===
+  // IntersectionObserver fallback — ONLY for elements NOT already revealed
+  // by GSAP hero stagger or other named GSAP animations.
   (function initRevealObserver() {
-    // Skip if IntersectionObserver not supported
     if (!('IntersectionObserver' in window)) {
       document.body.classList.add('no-gsap');
       return;
@@ -59,8 +59,15 @@
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
+          const el = entry.target;
+          // Force a paint of the hidden state BEFORE adding is-visible,
+          // so the CSS transition actually runs.
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              el.classList.add('is-visible');
+              observer.unobserve(el);
+            });
+          });
         }
       });
     }, {
@@ -68,9 +75,17 @@
       threshold: 0.1
     });
 
-    // Observe all .reveal elements
     const startObserving = () => {
       document.querySelectorAll('.reveal').forEach((el) => {
+        // Skip elements that GSAP hero stagger / named animations will handle.
+        // These have delay-N classes OR live inside the hero section.
+        const inHero = el.closest('.hero, .hero-section, #hero, [data-hero]');
+        const hasDelayClass = /\bdelay-\d+\b/.test(el.className);
+        if (inHero || hasDelayClass) {
+          // Let GSAP handle these. If GSAP fails to load, the no-gsap
+          // fallback below will reveal them via the body.no-gsap CSS rule.
+          return;
+        }
         observer.observe(el);
       });
     };
@@ -82,7 +97,7 @@
     }
   })();
 
-  // === GSAP failure detection — adds body.no-gsap if GSAP didn't load ===
+  // GSAP failure detection (unchanged from current code)
   setTimeout(() => {
     if (typeof gsap === 'undefined') {
       document.body.classList.add('no-gsap');
