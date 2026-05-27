@@ -48,20 +48,33 @@
     }
   }
 
-  // IntersectionObserver fallback — ONLY for elements NOT already revealed
-  // by GSAP hero stagger or other named GSAP animations.
+  // =====================================================
+  // Scroll Reveal — Mobile-first, GSAP-independent
+  // =====================================================
   (function initRevealObserver() {
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
     if (!('IntersectionObserver' in window)) {
       document.body.classList.add('no-gsap');
       return;
+    }
+
+    // On mobile, force the "no-gsap" class so GSAP timelines targeting
+    // .reveal elements are effectively disabled (they check this class
+    // via the CSS rule body.no-gsap .reveal { opacity: 1 !important }).
+    // Wait — that rule REVEALS instantly. We need different behavior.
+    // Instead: add a body class that the named GSAP init functions can
+    // check, AND let the IntersectionObserver handle everything.
+    if (isMobile) {
+      document.body.classList.add('mobile-reveal');
     }
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const el = entry.target;
-          // Force a paint of the hidden state BEFORE adding is-visible,
-          // so the CSS transition actually runs.
+          // Double rAF forces a paint of opacity:0 state before adding
+          // is-visible, so the CSS transition reliably fires.
           requestAnimationFrame(() => {
             requestAnimationFrame(() => {
               el.classList.add('is-visible');
@@ -71,22 +84,23 @@
         }
       });
     }, {
-      rootMargin: '0px 0px -10% 0px',
-      threshold: 0.1
+      rootMargin: '0px 0px -8% 0px',
+      threshold: 0.05
     });
 
     const startObserving = () => {
       document.querySelectorAll('.reveal').forEach((el) => {
-        // Skip elements that GSAP hero stagger / named animations will handle.
-        // These have delay-N classes OR live inside the hero section.
-        const inHero = el.closest('.hero, .hero-section, #hero, [data-hero]');
-        const hasDelayClass = /\bdelay-\d+\b/.test(el.className);
-        if (inHero || hasDelayClass) {
-          // Let GSAP handle these. If GSAP fails to load, the no-gsap
-          // fallback below will reveal them via the body.no-gsap CSS rule.
-          return;
+        if (isMobile) {
+          // Mobile: observe EVERYTHING. CSS handles the animation.
+          observer.observe(el);
+        } else {
+          // Desktop: only observe elements GSAP doesn't already handle.
+          // GSAP handles hero stagger (delay-N classes) and named sections.
+          const hasDelayClass = /\bdelay-\d+\b/.test(el.className);
+          if (!hasDelayClass) {
+            observer.observe(el);
+          }
         }
-        observer.observe(el);
       });
     };
 
@@ -97,7 +111,7 @@
     }
   })();
 
-  // GSAP failure detection (unchanged from current code)
+  // GSAP failure detection (keep this as-is, do not modify)
   setTimeout(() => {
     if (typeof gsap === 'undefined') {
       document.body.classList.add('no-gsap');

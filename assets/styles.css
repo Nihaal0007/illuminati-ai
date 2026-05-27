@@ -1510,31 +1510,47 @@ body.cursor-card .cursor-ring {
   box-shadow: 0 0 24px var(--gold-glow-soft);
 }
 
-/* === SCROLL REVEAL: Three-layer fallback === */
-/* Layer 1: Initial hidden state (works even before JS loads) */
+/* === SCROLL REVEAL — Mobile-first, GSAP-independent === */
+/* Default hidden state */
 .reveal {
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
-/* Layer 2: Visible state (added by IntersectionObserver or GSAP) */
+/* Visible state — added by IntersectionObserver */
 .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Layer 3: GSAP failure override — body.no-gsap class added by JS at 2s if GSAP missing */
-/* Smooth fade-in when GSAP fails, instead of snap-visible */
+/* MOBILE: Force CSS-only path. GSAP inline styles on .reveal
+   elements get overridden so mobile uses pure CSS transitions. */
+@media (max-width: 768px) {
+  body.mobile-reveal .reveal {
+    opacity: 0 !important;
+    transform: translateY(20px) !important;
+    filter: none !important;
+    visibility: visible !important;
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+  body.mobile-reveal .reveal.is-visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+}
+
+/* GSAP completely failed — show everything immediately */
 body.no-gsap .reveal {
   opacity: 1 !important;
   transform: none !important;
   transition: opacity 0.4s ease !important;
 }
 
-/* Respect user's reduced motion preference */
+/* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   .reveal {
     opacity: 1 !important;
